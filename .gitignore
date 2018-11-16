@@ -1,3 +1,15 @@
 .cache
 dist
 node_modules
+public/static
+build
+logs
+*.log
+npm-debug.log*
+.DS_Store
+
+coverage
+node_modules
+build
+public/static
+.env.*.local
