@@ -1,0 +1,1 @@
+export { authorQuery } from './author'
