@@ -1,6 +1,6 @@
 import React from 'react'
 import { hydrate } from 'react-dom'
-// import 'sz-global-styles/src/styles/main.scss'
+import 'sz-global-styles/src/styles/main.scss'
 import { AuthorPage } from '../components/AuthorPage'
 
 const rootNode = document.getElementById('root')

@@ -30,7 +30,6 @@
     "ramda": "^0.25.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "sz-global-styles": "git+ssh://git@stash-intern.swmh.de/szde/styleguide.git#v1.10.2",
-    "szfonts": "git+ssh://git@stash-intern.swmh.de/ass/szfonts.git#v1.7.0"
+    "sz-global-styles": "git+ssh://git@stash-intern.swmh.de/szde/styleguide.git#v1.4.16"
   }
 }
