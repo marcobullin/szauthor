@@ -76,6 +76,13 @@ app
         ),
       )
   })
+  .get('/autoren/api/collaborations', async function (req, res) {
+      const { collaboratorIds } = req.query;
+      const { articles } = await getArticles({ collaboratorIds })
+
+      res.setHeader('Content-Type', 'application/json')
+      res.send(JSON.stringify(articles));
+  })
   .use('/', express.static('public'))
 
 export default app
