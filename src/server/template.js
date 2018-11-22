@@ -15,14 +15,7 @@ export const template = (scriptSrc, hydrationData = {}, markup = '') => `
     </head>
     <body class="homepage">
       <esi:include src="/header/snippet" />
-      <div id="sueddeutsche" class="site">
-          <div id="wrapperbelt" class="site__wrapper">
-            <div id="wrapper" class="site__wrapper__content">
-              <div id="root" data-react='${JSON.stringify(hydrationData)}'>${markup}</div>
-            </div>
-          </div>
-      </div>
-
+      <div id="root" data-react='${JSON.stringify(hydrationData)}'>${markup}</div>
       ${
         isProd
           ? `<script src="${scriptSrc}" defer></script>`

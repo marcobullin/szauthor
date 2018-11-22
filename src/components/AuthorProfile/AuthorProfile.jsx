@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { ImageWithFallback } from '../ImageWithFallback'
 
 export const AuthorProfile = ({ searchTitle, name, jobTitle, description, email, image }) => (
   <div className="sz-author-profile">
     <div className="sz-author-profile__image-wrapper">
-      <img className="sz-author-profile__image" src={image} alt={name} />
+      <ImageWithFallback className="sz-author-profile__image" src={image} alt={name} />
       <a className="sz-link sz-link--underlined" href={`mailto:${email}`}>
         {email}
       </a>

@@ -1,34 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { ImageWithFallback, SZ_FALLBACK } from '../ImageWithFallback'
 
-const ImageSet = ({ url }) => (
-  <React.Fragment>
-    <img
-      src={`${url}/208x156?v=323465344"`}
-      srcSet={`${url}/208x156?v=323465344 208w, ${url}/416x312?v=323465344 416w`}
-      sizes="208px"
-      className="sz-teaser__image sz-teaser__image--s sz-teaser__image--desktop"
-      alt="Designerbild"
-    />
-    <img
-      src={`${url}/320x180?v=323465344`}
-      srcSet={`${url}/200x113?v=323465344 200w, ${url}/400x225?v=323465344 400w, ${url}/600x338?v=323465344 600w, ${url}/800x450?v=323465344 800w`}
-      sizes="70vw"
-      className="sz-teaser__image sz-teaser__image--s sz-teaser__image--mobile"
-      alt="Designerbild"
-    />
-  </React.Fragment>
-)
-
-ImageSet.propTypes = {
-  url: PropTypes.string.isRequired,
-}
-
-export const TeaserImage = ({ overline, title, abstractText, authorText, imageUrl, url }) => (
-  <a href={url} className="sz-teaser sz-teaser--lead-story">
+export const TeaserImage = ({
+  overline,
+  title,
+  abstractText,
+  authorText,
+  image: imageUrl,
+  externalUrl,
+}) => (
+  <a href={externalUrl} className="sz-teaser sz-teaser--lead-story" style={{ marginTop: 30 }}>
     <div className="sz-teaser__content-wrapper">
-      <div className="sz-teaser__image-container sz-teaser__image-container--s">
-        <ImageSet url={imageUrl} />
+      <div
+        className="sz-teaser__image-container sz-teaser__image-container--s"
+        style={{ height: 'auto' }}
+      >
+        <ImageWithFallback fallback={SZ_FALLBACK} src={imageUrl} alt={title} />
       </div>
       <div className="sz-teaser__text-container--s">
         <div className="sz-teaser__overline">
@@ -43,10 +31,12 @@ export const TeaserImage = ({ overline, title, abstractText, authorText, imageUr
 )
 
 export const teaserImagePropTypes = {
+  externalUrl: PropTypes.string,
   overline: PropTypes.string,
   title: PropTypes.string.isRequired,
   abstractText: PropTypes.string.isRequired,
   authorText: PropTypes.string,
+  image: PropTypes.string,
 }
 
 TeaserImage.propTypes = teaserImagePropTypes

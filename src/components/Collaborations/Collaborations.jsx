@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Headline } from '../Headline'
 import { TeaserText } from '../teasers'
 import { authorProfilePropTypes } from '../AuthorProfile'
+import { ImageWithFallback } from '../ImageWithFallback'
 
 class Collaboration extends React.Component {
   state = { expanded: false }
@@ -16,7 +17,7 @@ class Collaboration extends React.Component {
     return (
       <div style={{ display: 'flex' }}>
         <div style={{ width: '100%', maxWidth: 200 }}>
-          <img src={image} alt={name} style={{ display: 'block', width: '100%' }} />
+          <ImageWithFallback src={image} alt={name} style={{ display: 'block', width: '100%' }} />
         </div>
         <section style={{ flexGrow: 1 }}>
           <h3>{name}</h3>
@@ -55,5 +56,5 @@ export const Collaborations = ({ collaborations = [] }) => (
 )
 
 Collaborations.propTypes = {
-  collaborations: PropTypes.arrayOf(authorProfilePropTypes).isRequired,
+  collaborations: PropTypes.arrayOf(PropTypes.shape(authorProfilePropTypes)).isRequired,
 }
