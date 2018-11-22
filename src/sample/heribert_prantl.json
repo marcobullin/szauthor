@@ -1,0 +1,44 @@
+{
+          "lastName": "Prantl",
+          "model_version": "1.6",
+          "types": [
+            "author",
+            "socialmediaconnected"
+          ],
+          "internal_id": 11501,
+          "facebookId": "",
+          "jobTitle": "Mitglied der Chefredaktion, Leiter des Ressorts Meinung",
+          "description": "
+<p>Prof. Dr. Heribert Prantl ist Mitglied der Chefredaktion der <i>Süddeutschen Zeitung</i>, er hat 25 Jahre das Ressort Innenpolitik geführt und ist jetzt Leiter des Ressorts Meinung. Er lehrt als Honorarprofessor für Rechtswissenschaft an der Universität Bielefeld. Er hat Recht, Geschichte und Philosophie studiert, parallel dazu eine journalistische Ausbildung gemacht und im Urheberrecht und Wettbewerbsrecht promoviert. Bevor er 1988 als rechtspolitischer Redakteur zur SZ ging, war er Staatsanwalt und Richter in Bayern. Er liebt die Musik seines oberpfälzischen Landsmanns Christoph Willibald Gluck. Wenn er die hört, legt er Romane, Geschichtsbücher, die \"Reine Rechtslehre\" und sogar die <i>Süddeutsche Zeitung</i> beiseite.</p>
+<p>Heribert Prantl hat zahlreiche politische Bücher geschrieben, für das erste Buch \"Deutschland, leicht entflammbar\" erhielt er den Geschwister-Scholl-Preis. Zu seinen weiteren Auszeichnungen zählen u.a. der Wissenschaftspreis des Hauses Thurn und Taxis, der Kurt-Tucholsky-Preis, der Rhetorik-Preis der Universität Tübingen, der Hildegard-Hamm-Brücher-Preis, der Siebenpfeiffer-Preis, der Wilhelm-Hoegner-Preis und der Brüder-Grimm-Preis der Universität Marburg. Für seine Leitartikel zu den großen christlichen Feiertagen verlieh ihm der Fachbereich Theologie der Universität Erlangen-Nürnberg den Dr. h. c. der Theologie. Jüngste Buchveröffentlichungen: \"Im Namen der Menschlichkeit. Rettet die Flüchtlinge\" (2015); \"Trotz alledem. Europa muss man einfach lieben\" (2016) und \"Gebrauchsanweisung für Populisten\" (2017).</p>
+",
+          "external_id": "1.1148378",
+          "published": true,
+          "external_version": "1515414550",
+          "title": "Prof. Dr.",
+          "searchTitle": "Prof. Dr. Heribert Prantl",
+          "twitterId": "",
+          "firstName": "Heribert",
+          "showOnline": true,
+          "dependants": [
+            "1.2103277"
+          ],
+          "authorImage": {
+            "title": "image001",
+            "caption": "",
+            "source": "",
+            "altText": "140826_pol",
+            "modifiedDate": "2018-08-01T14:12:17+0200",
+            "external_id": "1.2103277",
+            "external_system": "sz",
+            "external_version": "1533125537",
+            "types": [
+              "image"
+            ]
+          },
+          "name": "Heribert Prantl",
+          "autoListing": true,
+          "email": "Buero.Prantl@sueddeutsche.de",
+          "external_system": "sz"
+        }
+      }
