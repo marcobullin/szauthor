@@ -44,13 +44,11 @@ export const articlesQuery = ({ authorName = "", authorId = "", page = 1, size =
   }
 
   if (collaboratorIds.length > 0) {
-    collaboratorIds.map(id => {
-      must.push({
-        match: {
-          'authors.external_id': id,
-        },
-      })
-    })
+    must.push({
+      terms: {
+        'authors.external_id': collaboratorIds
+      },
+    });
   }
 
   return client.search({
