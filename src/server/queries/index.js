@@ -10,7 +10,7 @@ export const getAuthor = authorName => {
         map(
           pipe(
             prop('_source'),
-            pick(['externalId', 'name', 'email', 'jobTitle', 'searchTitle', 'description', 'authorImage']),
+            pick(['external_id', 'name', 'email', 'jobTitle', 'searchTitle', 'description', 'authorImage']),
           ),
         ),
         filter(a => a.name === authorName),
