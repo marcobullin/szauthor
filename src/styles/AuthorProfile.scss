@@ -1,0 +1,14 @@
+.sz-author-profile {
+  display: flex;
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &__image-wrapper {
+    width: 100%;
+    max-width: 300px;
+  }
+}
