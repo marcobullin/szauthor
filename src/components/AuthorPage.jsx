@@ -8,6 +8,12 @@ export const AuthorPage = ({ articles = [], author = {}, cooperations = [] }) =>
     { author.email && <p>{ author.email }</p> }
     { author.description && <span dangerouslySetInnerHTML={{__html: author.description}}></span> }
 
+    <h2>Departments ({ author.departments.length })</h2>
+    {author.departments.join(', ')}
+
+    <p><b>{ author.articleCount }</b> Artikel verfasst</p>
+
+
     <h2>Neueste Artikel</h2>
     <ul>
       {articles.map((article, i) => (

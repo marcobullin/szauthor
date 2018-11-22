@@ -11,18 +11,21 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const app = express()
 
-// isNotTheSame :: authorName => author => Boolean
-const isNotTheSame = authorName => pipe(equals(authorName), not)
-
 // getCooperations :: authorName => Array[article] => Array[cooperation]
 const getCooperations = authorName => pipe(
   map(
     pipe(
       prop('authors'),
-      filter(isNotTheSame(authorName))
+      filter(author => author.name !== authorName),
     )
   ),
   flatten,
+  uniq
+)
+
+// getDepartments :: Array[article] => Array[department]
+const getDepartments = pipe(
+  map(prop('department')),
   uniq
 )
 
@@ -31,22 +34,18 @@ app
   .get('/isonline', function (req, res) {
     res.end("true");
   })
-  .get('/authors/:authorName', async function(req, res) {
-    const author = await getAuthor(req.params.authorName.replace('_', ' '))
-console.log(author);
-    //const authors = await getAuthors();
-    const hydrationData = { author };
-    /*
-    const author = await getAuthor(req.params.authorName)
-    const articles = await getArticles(author)
+  .get('/autoren/:authorName', async function(req, res) {
+    const authorName = req.params.authorName.replace('_', ' ')
+    const author = await getAuthor(authorName)
+    const { count, articles } = await getArticles({authorName, size: 100})
+
     const cooperations = getCooperations(authorName)(articles)
 
-    const hydrationData = {
-      author,
-      articles,
-      cooperations
-    }
-*/
+    author.articleCount = count;
+    author.departments = getDepartments(articles);
+
+    const hydrationData = { author, articles: articles.slice(0, 4), cooperations };
+
     res.setHeader('Content-Type', 'text/html')
     res.send(
       template(
@@ -55,31 +54,22 @@ console.log(author);
         renderToString(<AuthorPage {...hydrationData} />),
       ),
     )
+  })
+  .get('/autoren/api/:authorId/latest-publications', async function (req, res) {
+      const { department, page } = req.query;
+      const { authorId } = req.params;
+      const { count, articles } = await getArticles({ authorId, page, department })
 
-/*
-    authorQuery().then(resp => {
-      const hydrationData = {
-        author: author("Heribert Prantl")(resp)
-      }
+      const hydrationData = { articles };
 
-      authorArticlesQuery().then(resp => {
-        const articles = getArticleData(resp);
-        const cooperations = getCoopAuthors("Heribert Prantl")(articles)
-
-        hydrationData.articles = articles;
-        hydrationData.cooperations = cooperations;
-
-        res.setHeader('Content-Type', 'text/html')
-        res.send(
-          template(
-            assets.client.js,
-            hydrationData,
-            renderToString(<AuthorPage {...hydrationData} />),
-          ),
-        )
-      })
-    })
-    */
+      res.setHeader('Content-Type', 'text/html')
+      res.send(
+        template(
+          assets.client.js,
+          hydrationData,
+          renderToString(<AuthorPage {...hydrationData} />),
+        ),
+      )
   })
   .use('/', express.static('public'))
 

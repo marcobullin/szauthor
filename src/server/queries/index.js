@@ -10,29 +10,49 @@ export const getAuthor = authorName => {
         map(
           pipe(
             prop('_source'),
-            pick(['name', 'email', 'jobTitle', 'searchTitle', 'description', 'authorImage']),
+            pick(['externalId', 'name', 'email', 'jobTitle', 'searchTitle', 'description', 'authorImage']),
           ),
         ),
         filter(a => a.name === authorName),
-        tap(x => console.log(x)),
-        head
+        head,
+        author => {
+          author.image = `https://media-cdn.sueddeutsche.de/image/sz.${author.authorImage.externalId}/300x400?v=1521945617`;
+          delete author.authorImage;
+          return author;
+        }
       )
     )
 }
 
 // getArticles :: authorName => Array[Article]
-export const getArticles = authorName => {
-  return articlesQuery(authorName).then(resp => pipe(
-    path(['hits', 'hits']),
-    map(
-      pipe(
-        prop('_source'),
-        pick(['title', 'authors']),
-      ),
-    )
-  ))
-}
+export const getArticles = ({ authorName = "", authorId = "", page = 1, size = 5, department = "" }) => {
+  return articlesQuery({ authorName, authorId, page, size, department })
+    .then(resp => {
+      const count = pipe(
+        path(['hits', 'total'])
+      )(resp);
 
+      const articles = pipe(
+        path(['hits', 'hits']),
+        map(
+          pipe(
+            prop('_source'),
+            pick(['title', 'overline', 'abstractText', 'articleAuthorText', 'authors', 'department', 'externalUrl', 'imageContexts']),
+            article => {
+              article.image = article.imageContexts && article.imageContexts.length > 0 ?
+                `https://media-cdn.sueddeutsche.de/image/sz.${article.imageContexts[0].image.external_id}` : ''
+
+              delete article.imageContexts;
+
+              return article;
+            }
+          ),
+        )
+      )(resp);
+
+      return { count, articles }
+    })
+}
 
 /*
   author
