@@ -15,9 +15,11 @@ export const AuthorProfile = ({ searchTitle, name, jobTitle, description, email,
       </a>
     </div>
     <section className="sz-author-profile__info">
-      <h1 className="sz-font__headline--m-italic">{searchTitle ? searchTitle : name}</h1>
+      <h1 className="sz-font__headline--m-italic" style={{ marginTop: 5, fontSize: 32 }}>
+        {searchTitle ? searchTitle : name}
+      </h1>
       {jobTitle ? <h4 className="sz-font__headline--s-regular">{jobTitle}</h4> : null}
-      <div className="sz-font__text--s-regular" dangerouslySetInnerHTML={{ __html: description }} />
+      <div className="sz-font__text--s-regular" style={{ marginTop: 50 }} dangerouslySetInnerHTML={{ __html: description }} />
     </section>
   </div>
 )
