@@ -17,6 +17,7 @@
     "file-loader": "^2.0.0",
     "isomorphic-style-loader": "^4.0.0",
     "mini-css-extract-plugin": "^0.4.4",
+    "mongoose": "^5.3.13",
     "node-sass": "^4.10.0",
     "prop-types": "^15.6.2",
     "resolve-url-loader": "^3.0.0",

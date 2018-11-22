@@ -64,10 +64,11 @@ export class LatestPublications extends React.Component {
   getTeasers = () => {
     const { authorId } = this.props
     const { filters, page, teasers: teasersBefore } = this.state
-    const url = `/authors/api/${authorId}/latest-publications`
+    const department = filters.length > 1 ? {} : { department: filters[0] }
+    const url = `/autoren/api/${authorId}/latest-publications`
     const shouldMergeTeasers = page !== 1
     axios
-      .get(url, { params: { filters, page } })
+      .get(url, { params: { ...department, page } })
       .then(res => res.data)
       .then(teasers => {
         this.setState(prevState => ({

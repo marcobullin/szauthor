@@ -5,20 +5,21 @@ import { AuthorProfile, authorProfilePropTypes } from './AuthorProfile'
 import { LatestPublications } from './LatestPublications'
 import { Collaborations } from './Collaborations'
 
-export const AuthorPage = ({ author, profile, defaultTeasers }) => (
+export const AuthorPage = ({ author, articles, collaborations }) => (
   <div className="sz-author-wrapper">
     <Headline tag="h2">Autoren Spotlight</Headline>
-    <AuthorProfile {...profile} />
+    <AuthorProfile {...author} />
     <LatestPublications
       authorId={author.external_id}
       departments={author.departments}
-      defaultTeasers={defaultTeasers}
+      defaultTeasers={articles}
     />
-    <Collaborations />
+    <Collaborations collaborations={collaborations} />
   </div>
 )
 
 AuthorPage.propTypes = {
-  profile: PropTypes.shape(authorProfilePropTypes),
-  defaultTeasers: PropTypes.array.isRequired,
+  author: PropTypes.shape(authorProfilePropTypes),
+  articles: PropTypes.array.isRequired,
+  collaborations: PropTypes.array.isRequired,
 }

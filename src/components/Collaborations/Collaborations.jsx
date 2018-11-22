@@ -2,19 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Headline } from '../Headline'
 import { TeaserText } from '../teasers'
-
-const collaborationsPropTypes = {
-  external_id: PropTypes.string,
-  image: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  searchTitle: PropTypes.string,
-  collaboratedArticlesCount: PropTypes.number.isRequired,
-  teasers: PropTypes.shape({
-    overline: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  }),
-}
+import { authorProfilePropTypes } from '../AuthorProfile'
 
 class Collaboration extends React.Component {
   state = { expanded: false }
@@ -37,11 +25,11 @@ class Collaboration extends React.Component {
             <strong>{collaboratedArticlesCount + ' '}</strong>gemeinsam veröffentlichte Artikel und
             Reportagen.
           </p>
-          <div style={{ display: expanded ? 'block' : 'none' }}>
+          {/* <div style={{ display: expanded ? 'block' : 'none' }}>
             {teasers.map(teaser => (
               <TeaserText {...teaser} />
             ))}
-          </div>
+          </div> */}
           <button
             className="sz-button"
             style={{ display: 'block', margin: '0 auto' }}
@@ -55,53 +43,17 @@ class Collaboration extends React.Component {
   }
 }
 
-Collaboration.propTypes = collaborationsPropTypes
+Collaboration.propTypes = authorProfilePropTypes
 
 export const Collaborations = ({ collaborations = [] }) => (
   <div>
     <Headline>Wer mit wem</Headline>
-    {collaborations.map(collab => (
-      <Collaboration {...collab} />
+    {collaborations.map(author => (
+      <Collaboration key={author.external_id} {...author} />
     ))}
   </div>
 )
 
 Collaborations.propTypes = {
-  collaborations: PropTypes.arrayOf(collaborationsPropTypes).isRequired,
-}
-
-const mockCollaborations = [
-  {
-    external_id: '1.1234',
-    image: 'https://www.ullstein-buchverlage.de/uploads/tx_publisher/urheberfoto/urheber1208.jpg',
-    name: 'Cerstin Gammelin',
-    searchTitle: 'Stellvertretende Redaktionsleiterin',
-    collaboratedArticlesCount: 12,
-    teasers: PropTypes.shape({
-      overline: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }),
-    teasers: [
-      {
-        overline: 'Lorem, ipsum dolor.',
-        title: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde, numquam!',
-        url: '/asfasdf',
-      },
-      {
-        overline: 'Lorem, ipsum dolor.',
-        title: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde, numquam!',
-        url: '/asfasdf',
-      },
-      {
-        overline: 'Lorem, ipsum dolor.',
-        title: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde, numquam!',
-        url: '/asfasdf',
-      },
-    ],
-  },
-]
-
-Collaborations.defaultProps = {
-  collaborations: mockCollaborations,
+  collaborations: PropTypes.arrayOf(authorProfilePropTypes).isRequired,
 }
