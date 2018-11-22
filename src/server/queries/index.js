@@ -16,7 +16,7 @@ export const getAuthor = authorName => {
         filter(a => a.name === authorName),
         head,
         author => {
-          author.image = `https://media-cdn.sueddeutsche.de/image/sz.${author.authorImage.externalId}/300x400?v=1521945617`;
+          author.image = `https://media-cdn.sueddeutsche.de/image/sz.${author.authorImage.external_id}/300x400?v=1521945617`;
           delete author.authorImage;
           return author;
         }
@@ -41,7 +41,7 @@ export const getArticles = ({ authorName = "", authorId = "", page = 1, size = 5
             article => {
               article.image = article.imageContexts && article.imageContexts.length > 0 ?
                 `https://media-cdn.sueddeutsche.de/image/sz.${article.imageContexts[0].image.external_id}` : ''
-
+                
               delete article.imageContexts;
 
               return article;

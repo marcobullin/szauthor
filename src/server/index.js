@@ -17,6 +17,11 @@ const getCooperations = authorName => pipe(
     pipe(
       prop('authors'),
       filter(author => author.name !== authorName),
+      map(author => {
+        author.image = author.authorImage ? `https://media-cdn.sueddeutsche.de/image/sz.${author.authorImage.external_id}/300x400?v=1521945617` : '';
+        delete author.authorImage;
+        return author;
+      })
     )
   ),
   flatten,

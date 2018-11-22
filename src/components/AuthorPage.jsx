@@ -26,6 +26,7 @@ export const AuthorPage = ({ articles = [], author = {}, cooperations = [] }) =>
     <ul>
       {cooperations.map((partnerAuthor, i) => (
         <li key={i}>
+          { partnerAuthor.image && <img src={partnerAuthor.image}/>}
           { partnerAuthor.searchTitle && <p><b>{partnerAuthor.searchTitle}</b></p>}
           { partnerAuthor.jobTitle && <p>{ partnerAuthor.jobTitle }</p> }
           { partnerAuthor.email && <p>{ partnerAuthor.email }</p> }
