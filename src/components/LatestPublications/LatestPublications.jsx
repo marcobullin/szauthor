@@ -1,30 +1,50 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import axios from 'axios'
 import { equals } from 'ramda'
 import { Headline } from '../Headline'
 import { TeaserImage } from '../teasers'
 
+const FilterButton = ({ isActive = false, children, ...props }) => (
+  <button
+    style={{
+      boxSizing: 'border-box',
+      borderSize: 1.5,
+      borderColor: isActive ? '#29293A' : 'white',
+    }}
+    className={classnames('sz-button sz-button--small', isActive ? '' : 'sz-button--white')}
+    disabled={isActive}
+    {...props}
+  >
+    {children}
+  </button>
+)
+
+FilterButton.propTypes = {
+  isActive: PropTypes.bool,
+}
+
 const isActiveFilter = (active, filter) => equals(filter.slice(0).sort(), active.slice(0).sort())
 
-const Filter = ({ onChange, filters, activeFilters }) => (
-  <div>
+const Filter = ({ onChange, filters, activeFilters, ...props }) => (
+  <div {...props}>
     {filters.map(filter => (
-      <button
+      <FilterButton
         key={filter}
         onClick={() => onChange([filter])}
-        className={isActiveFilter(activeFilters, [filter]) ? 'active' : ''}
+        isActive={isActiveFilter(activeFilters, [filter])}
       >
         {filter}
-      </button>
+      </FilterButton>
     ))}
-    <button
+    <FilterButton
       key="all"
       onClick={() => onChange(filters)}
-      className={isActiveFilter(activeFilters, filters) ? 'active' : ''}
+      isActive={isActiveFilter(activeFilters, filters)}
     >
       Alle
-    </button>
+    </FilterButton>
   </div>
 )
 
@@ -35,52 +55,66 @@ Filter.propTypes = {
 }
 
 export class LatestPublications extends React.Component {
-  constructor({ departments, defaultTeasers }) {
-    super()
-    this.setState({
-      teasers: defaultTeasers.slice(0),
-      filters: departments.slice(0).sort(),
-    })
-  }
-
   state = {
-    filters: [],
-    teasers: [],
+    filters: this.props.departments.slice(0).sort(),
+    teasers: this.props.defaultTeasers.slice(0),
+    page: 1,
   }
 
   getTeasers = () => {
     const { authorId } = this.props
-    const { filters } = this.state
+    const { filters, page, teasers: teasersBefore } = this.state
     const url = `/authors/api/${authorId}/latest-publications`
+    const shouldMergeTeasers = page !== 1
     axios
-      .get(url, { params: { filters } })
+      .get(url, { params: { filters, page } })
       .then(res => res.data)
       .then(teasers => {
         this.setState(prevState => ({
           ...prevState,
-          teasers,
+          teasers: [...(shouldMergeTeasers ? teasersBefore : []), ...teasers],
         }))
       })
   }
 
-  componentDidMount() {
-    this.getTeasers()
+  setActiveFilters = filters => {
+    this.setState(
+      prevState => ({
+        ...prevState,
+        page: 1,
+        filters: filters.slice(0).sort(),
+      }),
+      () => this.getTeasers(),
+    )
+  }
+
+  setPage = page => {
+    this.setState(
+      prevState => ({
+        ...prevState,
+        page,
+      }),
+      () => this.getTeasers(),
+    )
   }
 
   render() {
     const { departments } = this.props
-    const { teasers, filters } = this.state
+    const { teasers, filters, page } = this.state
     return (
       <div>
-        <Headline tag="h2">Meine aktuellsten Artikel</Headline>
-        <Filter
-          filters={departments}
-          activeFilters={filters}
-          onChange={filters => console.log(filters)}
-        />
+        <Headline tag="h2">Meine neuester Shit</Headline>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Filter filters={departments} activeFilters={filters} onChange={this.setActiveFilters} />
+        </div>
         {teasers.map(teaser => (
           <TeaserImage {...teaser} key={teaser.title} />
         ))}
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button className="sz-button" onClick={() => this.setPage(page + 1)}>
+            Mehr Artikel laden
+          </button>
+        </div>
       </div>
     )
   }

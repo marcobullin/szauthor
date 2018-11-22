@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const AuthorProfile = ({ title, name, jobTitle, description, email, image }) => (
+export const AuthorProfile = ({ searchTitle, name, jobTitle, description, email, image }) => (
   <div className="sz-author-profile">
     <div className="sz-author-profile__image-wrapper">
       <img className="sz-author-profile__image" src={image} alt={name} />
-      <a className="sz-link sz-link--underlined" href={`mailto:${email}`}>{email}</a>
+      <a className="sz-link sz-link--underlined" href={`mailto:${email}`}>
+        {email}
+      </a>
     </div>
     <section className="sz-author-profile__info">
       <h1 className="sz-font__headline--m-italic">{name}</h1>
@@ -16,7 +18,7 @@ export const AuthorProfile = ({ title, name, jobTitle, description, email, image
 )
 
 export const authorProfilePropTypes = {
-  title: PropTypes.string,
+  searchTitle: PropTypes.string,
   name: PropTypes.string.isRequired,
   jobTitle: PropTypes.string,
   description: PropTypes.string.isRequired,
@@ -27,7 +29,7 @@ export const authorProfilePropTypes = {
 AuthorProfile.propTypes = authorProfilePropTypes
 
 AuthorProfile.defaultProps = {
-  title: null,
+  searchTitle: null,
   jobTitle: null,
   email: null,
   image: 'https://www.w3schools.com/howto/img_avatar.png',

@@ -1,11 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const TeaserText = () => (
-  <div>TeaserText</div>
+export const TeaserText = ({ overline, title, url }) => (
+  <a href={url}>
+    <div className="sz-oneliner__overline">
+      <p className="sz-oneliner__overline-title">{overline}</p>
+    </div>
+    <p className="sz-oneliner__title">{title}</p>
+  </a>
 )
 
-TeaserText.propTypes = {
-  overline: PropTypes.string,
-  title: PropTypes.string,
+const teaserTextPropTypes = {
+  overline: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 }
+
+TeaserText.propTypes = teaserTextPropTypes
