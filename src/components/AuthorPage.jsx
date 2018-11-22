@@ -13,8 +13,13 @@ export const AuthorPage = ({ author, articles, collaborations }) => (
       authorId={author.external_id}
       departments={author.departments}
       defaultTeasers={articles}
+      style={{ marginTop: 80 }}
     />
-    <Collaborations collaborations={collaborations} />
+    <Collaborations
+      collaborations={collaborations}
+      authorId={author.external_id}
+      style={{ marginTop: 80 }}
+    />
   </div>
 )
 

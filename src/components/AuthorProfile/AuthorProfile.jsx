@@ -4,9 +4,13 @@ import { ImageWithFallback } from '../ImageWithFallback'
 
 export const AuthorProfile = ({ searchTitle, name, jobTitle, description, email, image }) => (
   <div className="sz-author-profile">
-    <div className="sz-author-profile__image-wrapper">
+    <div className="sz-author-profile__image-wrapper" style={{ marginRight: 30 }}>
       <ImageWithFallback className="sz-author-profile__image" src={image} alt={name} />
-      <a className="sz-link sz-link--underlined" href={`mailto:${email}`}>
+      <a
+        className="sz-link sz-link--underlined"
+        href={`mailto:${email}`}
+        style={{ display: 'block', marginTop: 30 }}
+      >
         {email}
       </a>
     </div>

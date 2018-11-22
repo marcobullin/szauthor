@@ -100,10 +100,10 @@ export class LatestPublications extends React.Component {
   }
 
   render() {
-    const { departments } = this.props
+    const { departments, ...props } = this.props
     const { teasers, filters, page } = this.state
     return (
-      <div>
+      <div {...props}>
         <Headline tag="h2">Meine neuester Shit</Headline>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Filter filters={departments} activeFilters={filters} onChange={this.setActiveFilters} />
@@ -111,7 +111,7 @@ export class LatestPublications extends React.Component {
         {teasers.map(teaser => (
           <TeaserImage {...teaser} key={teaser.title} />
         ))}
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
           <button className="sz-button" onClick={() => this.setPage(page + 1)}>
             Mehr Artikel laden
           </button>

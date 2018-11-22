@@ -32,12 +32,16 @@ const getCooperations = authorName =>
       pipe(
         prop('authors'),
         filter(author => author.name !== authorName),
-      map(author => {
-        author.image = author.authorImage ? `https://media-cdn.sueddeutsche.de/image/sz.${author.authorImage.external_id}/300x400?v=1521945617` : '';
-        delete author.authorImage;
-        return author;
-      })
-    ),
+        map(author => {
+          author.image = author.authorImage
+            ? `https://media-cdn.sueddeutsche.de/image/sz.${
+                author.authorImage.external_id
+              }/300x400?v=1521945617`
+            : ''
+          delete author.authorImage
+          return author
+        }),
+      ),
     ),
     flatten,
     uniq,
@@ -57,7 +61,7 @@ app
   .get('/autoren/:authorName', async function(req, res) {
     const authorName = req.params.authorName.replace('_', ' ')
     const author = await getAuthor(authorName)
-    const { count, articles } = await getArticles({ authorName, size: 100 })
+    const { count, articles } = await getArticles({ authorName, size: 300 })
 
     const collaborations = getCooperations(authorName)(articles)
 
@@ -79,12 +83,12 @@ app
     res.setHeader('Content-Type', 'application/json')
     res.send(JSON.stringify(articles))
   })
-  .get('/autoren/api/collaborations', async function (req, res) {
-      const { collaboratorIds } = req.query;
-      const { articles } = await getArticles({ collaboratorIds })
+  .get('/autoren/api/collaborations', async function(req, res) {
+    const { collaboratorIds } = req.query
+    const { articles } = await getArticles({ collaboratorIds })
 
-      res.setHeader('Content-Type', 'application/json')
-      res.send(JSON.stringify(articles));
+    res.setHeader('Content-Type', 'application/json')
+    res.send(JSON.stringify(articles))
   })
   .use('/', express.static('public'))
 
