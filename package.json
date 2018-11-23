@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "razzle start",
+    "start:dev": "PORT=13009 razzle start",
     "build": "razzle build",
     "start": "NODE_ENV=production node build/server.js"
   },
