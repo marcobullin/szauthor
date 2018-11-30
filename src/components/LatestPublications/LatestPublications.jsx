@@ -104,7 +104,7 @@ export class LatestPublications extends React.Component {
     const { teasers, filters, page } = this.state
     return (
       <div style={style}>
-        <Headline tag="h2">Meine neuester Shit</Headline>
+        <Headline tag="h2">Meine neusten Artikel</Headline>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Filter filters={departments} activeFilters={filters} onChange={this.setActiveFilters} />
         </div>
