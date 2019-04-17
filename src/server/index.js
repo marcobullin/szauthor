@@ -61,7 +61,7 @@ app
   .get('/autoren/:authorName', async function(req, res) {
     const authorName = req.params.authorName.replace('_', ' ')
     const author = await getAuthor(authorName)
-    const { count, articles } = await getArticles({ authorName, size: 300 })
+    const { count, articles } = await getArticles({ authorName, size: 200 })
 
     const collaborations = getCooperations(authorName)(articles)
 
